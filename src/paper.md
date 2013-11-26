@@ -19,7 +19,7 @@ abstract here
 
 Introduction
 ---
-- TODO: Describe the different treatment decisions - prescribing and treatment decisions in clinical practice, and broader policy decisions such as drug approval and HTA (Huseyin) NOTE/Tommi: I would consider leaving HTA out of this paper - taking the cost aspect into account makes it more complicated.
+- TODO: Describe the different treatment decisions - prescribing and treatment decisions in clinical practice, and broader policy decisions such as drug approval and HTA (Huseyin) NOTE/Tommi: I would consider leaving HTA out of this paper - taking the cost aspect into account makes it more complicated. NOTE/Douwe: I agree.
 
 An introduction explaining the challenges in decision making for different healthcare settings that mainly arise due to methodological gaps in synthesis and interpretation of evidence. Settings include drug and treatment selection, marketing authorisation, coverage/reimbursement.
 Highlight the case of prescribing and treatment selection while choosing it as the topic of the case study.
@@ -29,27 +29,27 @@ Highlight the case of prescribing and treatment selection while choosing it as t
 Methods
 ---
 
-### Network meta-analysis ###
-- TODO: Describe network MA (Gert)
+### Alternatives and criteria ###
+- TODO: describe the decision problem
+
+### Criteria measurements ###
+- TODO: Describe the statins data set (Huseyin)
 
 ### Preference modeling ###
 - TODO: Describe MAVT (Tommi)
-- TODO: Describe extension to MAUT (Tommi)
-- TODO: Describe why MAUT might not be the best option (Tommi and Douwe)
-- TODO: Describe SMAA (Tommi)
 - TODO: Describe different elicitation methods (Gert, Tommi, Douwe, ++?)
+- TODO: Describe SMAA (Tommi)
 
 Results
 ---
-- TODO: Describe the statins data set (Huseyin)
 - TODO: Results of preference elicitation from some "experts" using different elicitation techniques (?)
-- NOTE/Tommi: need to elicit piecewise partial value functions (bisection?), weight ranges (interval swing), risk attitude (SG?), and the MAVT parameterization using indirect techniques
+- NOTE/Tommi: need to elicit piecewise partial value functions (bisection?), weight ranges (interval swing), and the MAVT parameterization using indirect techniques
 - NOTE/Tommi: I guess we will make the case analysis using policy/prescription decision preferences, and discuss later on what would be the differences/challenges when trying to model population preferences?
-- NOTE/Tommi: we could also skip MAUT in this paper completely and just explain that risk attitude is too difficult to elicit (and prone to too many biases, there's tons of papers on the topic)
-- Results from a SMAA analysis, using (i) linear partial VFs, (ii) piecewise linear partial VFs, and (iii) utility functions
+- Results from a SMAA analysis, using (i) linear partial VF and (ii) piecewise linear partial VFs
 
 Discussion
 ---
+- TODO: Describe the pros and cons of MAUT (Tommi and Douwe)
 
 Study highlights
 ---
