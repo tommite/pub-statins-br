@@ -1,4 +1,4 @@
-Gert van Valkenhoef (1, *), Huseyin Naci (2, 3), Tommi Tervonen (4), Tony Ades (5), Aris Angelis (2), Douwe Postmus (1)
+Gert van Valkenhoef (1, *), Huseyin Naci (2, 3), Tommi Tervonen (4), A. E. Ades (5), Aris Angelis (2), Douwe Postmus (1)
 
 (1) Department of Epidemiology, University Medical Center Groningen, University of Groningen, The Netherlands  
 (2) LSE Health, London School of Economics and Political Science, London, UK  
@@ -20,6 +20,9 @@ abstract here
 Introduction
 ---
 - TODO: Describe the different treatment decisions - prescribing and treatment decisions in clinical practice, and broader policy decisions such as drug approval and HTA (Huseyin) NOTE/Tommi: I would consider leaving HTA out of this paper - taking the cost aspect into account makes it more complicated.
+
+An introduction explaining the challenges in decision making for different healthcare settings that mainly arise due to methodological gaps in synthesis and interpretation of evidence. Settings include drug and treatment selection, marketing authorisation, coverage/reimbursement.
+Highlight the case of prescribing and treatment selection while choosing it as the topic of the case study.
 
 - TODO: Describe the statins case (Huseyin / ?)
 
