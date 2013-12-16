@@ -15,14 +15,19 @@ Gert van Valkenhoef (1, *), Huseyin Naci (2, 3), Tommi Tervonen (4), A. E. Ades 
 
 ## Abstract ##
 
-Decisions at many levels of health care have to weigh the pros and cons of alternative treatment strategies, including drug marketing authorization, reimbursement policy setting, guideline formulation, and prescription.
-While these decisions differ in some important respects, they also have much in common: they involve trade-offs between multiple effects measured on different scales, they should all be based on the best available evidence (often randomized controlled trials), and they must deal with significant uncertainty around treatment effects.
-Given the challenging nature of such decisions it is not surprising that multiple criteria decision analysis (MCDA), a family of formal methods that help decision makers structure these problems, is increasingly receiving attention in the field of medical decision making.
-
-TODO: some linkage here.
-In this paper, we survey different types of preference information and how they apply in either population-level or individualized treatment decisions.
-Moreoves, we discuss how such preference information should be elicited from expert decision makers or patients in a meaningful way that limits the chances of obtaining biased preference information.
-We hope to make decision makers and researchers aware of the various tools available to them, and the situations in which each tool is most suited.
+Decision makers in different health care settings need to weigh the benefits and harms of alternative strategies.
+Health care decisions include marketing authorization by regulatory agencies, reimbursement and coverage by health technology assessment bodies, practice guideline formulation by clinical groups, and treatment selection by clinicians and patients in clinical practice.
+While these decisions differ in some important respects, they also have much in common.
+First they involve important trade-offs among multiple attributes measured on different scales.
+Second, they strive to be evidence-based, often using randomized controlled trials.
+Third, they need to account for significant uncertainty in the effectiveness and safety of alternative scenarios.
+Given the challenging nature of such decisions it is not surprising that multiple criteria decision analysis (MCDA), a family of formal methods that help decision makers structure these problems, is receiving increasing attention to inform health care decisions.
+MCDA applies qualitative preferences on different attributes, allowing for a transparent judgment on their relative importance.
+Despite recent interest in MCDA, certain methodological aspects are poorly understood, specifically around how preferences at the individual and population levels differ, and what types of analyses are most useful to inform decisions at different settings.
+In this paper, we survey different types of preference information and how they may be used in formal analyses aiming to inform individual versus population-level decisions.
+We demonstrate how preferences should be elicited in a meaningful way that would minimize bias.
+Using statin selection in clinical practice as a case study, we also show how alternative elicitation approaches produce different treatment recommendations.
+In addition to providing an overview of various tools available to researchers and decision makers, we discuss implications for decision-making in different settings.
 
 ## Introduction ##
 
