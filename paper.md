@@ -15,25 +15,32 @@ Gert van Valkenhoef (1, *), Huseyin Naci (2, 3), Tommi Tervonen (4), A. E. Ades 
 
 ## Abstract ##
 
-Decisions at many levels of health care have to weigh the pros and cons of alternative treatment strategies, including drug marketing authorization, reimbursement policy setting, guideline formulation, and prescription.
-While these decisions differ in some important respects, they also have much in common: they involve trade-offs between multiple effects measured on different scales, they should all be based on the best available evidence (often randomized controlled trials), and they must deal with significant uncertainty around treatment effects.
-Given the challenging nature of such decisions it is not surprising that multiple criteria decision analysis (MCDA), a family of formal methods that help decision makers structure these problems, is increasingly receiving attention in the field of medical decision making.
-
-TODO: some linkage here.
-In this paper, we survey different types of preference information and how they apply in either population-level or individualized treatment decisions.
-Moreoves, we discuss how such preference information should be elicited from expert decision makers or patients in a meaningful way that limits the chances of obtaining biased preference information.
-We hope to make decision makers and researchers aware of the various tools available to them, and the situations in which each tool is most suited.
+Decision makers in different health care settings need to weigh the benefits and harms of alternative strategies.
+Health care decisions include marketing authorization by regulatory agencies, reimbursement and coverage by health technology assessment bodies, practice guideline formulation by clinical groups, and treatment selection by clinicians and patients in clinical practice.
+While these decisions differ in some important respects, they also have much in common.
+First, they involve important trade-offs among multiple attributes measured on different scales.
+Second, they strive to be evidence-based, often using randomized controlled trials.
+Third, they need to account for significant uncertainty in the effectiveness and safety of alternative scenarios.
+Given the challenging nature of such decisions it is not surprising that multiple criteria decision analysis (MCDA), a family of formal methods that help decision makers structure these problems, is receiving increasing attention to inform health care decisions.
+However, despite the recent interest in MCDA, certain methodological aspects of multi-criteria preference modeling remain are poorly understood, specifically around how preferences at the individual and population levels differ, and what types of analyses are most useful to inform decisions at different settings.
+In this paper, we survey different types of preference information and how they may be used in formal analyses aiming to inform individual or population-level decisions.
+We demonstrate how preferences should be elicited in a meaningful way that would minimize bias.
+Using statin selection in clinical practice as a case study, we also show how alternative elicitation approaches produce different treatment recommendations.
+In addition to providing an overview of various tools available to researchers and decision makers, we discuss implications for decision-making in different settings.
 
 ## Introduction ##
 
 Many decisions in health care involve assessing the balance of favourable and unfavourable effects of alternative treatment regimens, taking into account the associated uncertainties [CITE].
-For example, regulatory authorities assess whether a new drug is expected to, on balance, do more good than harm when treating a condition in a specific target population [CITE].
-Many have suggested the use of some form of multiple criteria decision analysis in regulatory benefit-risk assessments [@holden2003;@mussen2007;@felli2009;@smaa-br;@network-br;@coplan2011], including the European Medicines Agency's own benefit-risk project [@ema-br-wp2].
+For example, regulatory authorities assess whether a new drug is expected to do more good than harm when treating a condition in a specific target population [CITE].
+
+Many have suggested the use of some form of multiple criteria decision analysis in regulatory benefit-risk assessments [@holden2003;@mussen2007;@felli2009;@smaa-br;@network-br;@coplan2011], including the European Medicines Agency's own benefit-risk project [@ema-br-wp2], and research on MCDA in health is increasing [@diaby2013].
 The scope of regulatory benefit-risk assessment is usually fairly limited in the sense that the evidence base consists solely of the clinical trials submitted by the applicant [CITE] and the number of comparators is small because the objective is usually to ensure that the drug is beneficial as compared to not treating the condition, rather than to identify the best treatment [CITE].
 The formulation of treatment guidelines depends on a similar process of benefit-risk deliberation, although in this case the analysis will be much more inclusive in terms of both evidence and the number of comparators, since the goal is to identify the best treatment option given the available evidence [CITE].
 In addition, guideline formulation may also focus on identifying sub-populations that respond particularly well or particularly badly to specific treatments, and will also take into account the feasibility of implementing each treatment in the given health care setting [CITE].
+
 Prescribers often depend on guidelines and experience when identifying the best treatment for a specific patient, but may also refer to systematic reviews or directly to clinical trials [CITE].
 In essence, the prescription problem is similar to the regulatory benefit-risk problem, with two important differences: (1) the decision should take into account the individual patient's preferences rather than determine what is acceptable at the population level and (2) it may be questioned whether the population-level evidence from clinical trials or systematic reviews thereof applies to the individual patient [CITE huseyin-mcda?].
+
 Reimbursement decisions typically include several different aspects, including an assessment similar to the regulatory benefit-risk assessment and a cost-effectiveness analysis that contrasts long-term health effects versus the long-term costs of a treatment [CITE].
 Cost-effectiveness analysis is interesting in that it often includes preferences at two different levels: the policy maker's preferences for health care spending versus health benefits and the patients' preferences expressed as health state utilities.
 Although it can be argued that the standard cost-effectiveness framework is a form of MCDA [@smaa-cea] and so is the Quality Adjusted Life Year [CITE], the focus of this paper is on the benefit-risk type of decision rather than on the health economic setting.
