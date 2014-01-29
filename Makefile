@@ -10,3 +10,4 @@ quantfig:
 	sh process-quantfigs.sh
 	pdflatex quantile-fig.tex
 	pdfcrop quantile-fig.pdf quantile-fig.pdf
+	pdf2svg quantile-fig.pdf quantile-fig.svg

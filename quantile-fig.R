@@ -12,7 +12,6 @@ plotQuantiles <- function(outcome) {
                    id.label="Treatment", ci.label="Risk (95% CI)", right.label=outcome)
 }
 
-mfrow(
 ## make quantile figs
 for (oc in outcomes) {
     pdf(paste('quantiles-', oc, '.pdf', sep=''))
