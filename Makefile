@@ -1,9 +1,12 @@
-all: paper.rtf
+all: quantfig
 
-.PHONY: paper.rtf
+clean:
+	-rm *.pdf
 
-ref.bib: ../bib/journal-short.bib ../bib/medical.bib ../bib/others.bib
-	cat $^ > $@
+.PHONY: clean all quantfig
 
-paper.rtf: paper.md ref.bib
-	pandoc $< -s -o $@
+quantfig:
+	R --vanilla --silent < quantile-fig.R
+	sh process-quantfigs.sh
+	pdflatex quantile-fig.tex
+	pdfcrop quantile-fig.pdf quantile-fig.pdf
