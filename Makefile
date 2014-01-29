@@ -1,7 +1,7 @@
 all: quantfig
 
 clean:
-	-rm *.pdf
+	-rm -f *.pdf *.aux *.out *.log
 
 .PHONY: clean all quantfig
 
