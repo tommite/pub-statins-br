@@ -25,10 +25,28 @@ gen.meas <- function(desc) {
 meas <- lapply(outcomes, function(outcome) { gen.meas(dget(paste(outcome, 'meas.txt', sep='.'))) })
 names(meas) <- outcomes
 
+calc.quantiles <- function(meas) {
+	lapply(meas, function(x) {
+		apply(x, 2, function(y) {
+			quantile(y, probs=c(0.025, 0.5, 0.975))
+		})
+	})
+}
+
+print.pvf.ranges <- function(meas) {
+    lapply(meas, function(x) {
+        quantile(x, probs=c(0.025, 0.975))
+    })
+}
+
+quants <- calc.quantiles(meas)
 
 ## Establish partial value functions, compute the partial values
+## Note: range defined in 95% confidence interval
 part.values <- lapply(meas, function(x) {
-    matrix(smaa.pvf(x, cutoffs=range(x), values=c(0,1)), nrow=nrow(x), ncol=ncol(x))
+    matrix(smaa.pvf(x, cutoffs=quantile(x, probs=c(0.025, 0.975)),
+                    values=c(1,0), outOfBounds="interpolate"),
+           nrow=nrow(x), ncol=ncol(x))
 })
 
 part.values <- array(unlist(part.values), dim=c(N, length(treatments), length(outcomes)), dimnames=list(1:N, treatments, outcomes))
