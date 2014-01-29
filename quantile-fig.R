@@ -1,5 +1,13 @@
 source('analysis-base.R')
 
+calc.quantiles <- function(meas) {
+	lapply(meas, function(x) {
+		apply(x, 2, function(y) {
+			quantile(y, probs=c(0.025, 0.5, 0.975))
+		})
+	})
+}
+
 quants <- calc.quantiles(meas)
 
 plotQuantiles <- function(outcome) {

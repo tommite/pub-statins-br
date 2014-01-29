@@ -22,14 +22,6 @@ gen.meas <- function(desc) {
 	meas
 }
 
-calc.quantiles <- function(meas) {
-	lapply(meas, function(x) {
-		apply(x, 2, function(y) {
-			quantile(y, probs=c(0.025, 0.5, 0.975))
-		})
-	})
-}
-
 meas <- lapply(outcomes, function(outcome) { gen.meas(dget(paste(outcome, 'meas.txt', sep='.'))) })
 names(meas) <- outcomes
 
@@ -38,25 +30,6 @@ names(meas) <- outcomes
 part.values <- lapply(meas, function(x) {
     matrix(smaa.pvf(x, cutoffs=range(x), values=c(0,1)), nrow=nrow(x), ncol=ncol(x))
 })
-calc.quantiles(part.values)
+
 part.values <- array(unlist(part.values), dim=c(N, length(treatments), length(outcomes)), dimnames=list(1:N, treatments, outcomes))
 
-### Preference-free analysis ###
-w.W <- simplex.sample(length(outcomes), N)$samples
-result.pref.free <- smaa(part.values, w.W)
-
-## Plot rank acceptabilities
-plot(result.pref.free$ra)
-
-## Plot central weights for alts >= min.cf.limit
-plot(NA, xlim=c(1, length(outcomes)), ylim=c(0, 0.26), xlab="", ylab="Weight", xaxt='n')
-axis(side=1, at=1:7, labels=outcomes, las=2)
-result.pref.free.cw <- smaa.cf(part.values, result.pref.free$cw)
-pfree.to.plot <- result.pref.free.cw$cf >= min.cf.limit
-for (t in treatments) {
-    if (result.pref.free.cw$cf[t] >= min.cf.limit) {
-        lines(result.pref.free.cw$cw[t,], type='o', pch=which(treatments == t))
-    }
-}
-legend("bottomright", legend=treatments[pfree.to.plot],
-       pch=(1:length(treatments))[pfree.to.plot])
