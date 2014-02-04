@@ -18,3 +18,8 @@ preffree:
 	pdfcrop cw-preffree.pdf cw-preffree.pdf
 	pdf2ps -sOutputFile=%stdout% ra-preffree.pdf |ps2eps > ra-preffree.eps
 	pdf2ps -sOutputFile=%stdout% cw-preffree.pdf |ps2eps > cw-preffree.eps
+
+histofig:
+	R --vanilla --silent < histogram-fig.R
+	pdfcrop histogram.pdf histogram.pdf
+	pdf2ps -sOutputFile=%stdout% histogram.pdf |ps2eps > histogram.eps
