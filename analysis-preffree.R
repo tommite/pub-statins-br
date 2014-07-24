@@ -6,12 +6,12 @@ result.pref.free <- smaa(part.values, w.W)
 
 ## Plot rank acceptabilities
 pdf('ra-preffree.pdf')
-plot(result.pref.free$ra, main='')
+plot(result.pref.free$ra)
 dev.off()
 
 ## Plot central weights for alts >= min.cf.limit
 pdf('cw-preffree.pdf')
-plot(NA, xlim=c(1, length(outcomes)), ylim=c(0, 0.30), xlab="", ylab="Weight", xaxt='n', main='')
+plot(NA, xlim=c(1, length(outcomes)), ylim=c(0, 0.30), xlab="", ylab="Weight", xaxt='n')
 axis(side=1, at=1:7, labels=outcomes, las=2)
 result.pref.free.cw <- smaa.cf(part.values, result.pref.free$cw)
 pfree.to.plot <- result.pref.free.cw$cf >= min.cf.limit
