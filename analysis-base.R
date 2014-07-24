@@ -4,7 +4,7 @@ library(hitandrun)
 library(smaa)
 
 options(digits=3)
-N <- 1E4
+N <- 1E5
 min.cf.limit <- 0.1
 
 outcomes <- c(
