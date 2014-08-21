@@ -2,8 +2,9 @@ OUTCOMES := cerebrovasc ck-elevation coronary discontinuation mortality myalgia 
 MTCSAMPLES := $(OUTCOMES:%=data/%.mtc.result.txt)
 MTCDATA := $(OUTCOMES:%=data/%.data.txt)
 SMAAMEAS := $(OUTCOMES:%=data/%.meas.txt)
+FIGS = figs/network.pdf
 
-all: $(MTCSAMPLES) $(SMAAMEAS)
+all: $(MTCSAMPLES) $(SMAAMEAS) $(FIGS)
 
 .PRECIOUS: $(MTCSAMPLES)
 
@@ -13,3 +14,5 @@ data/%.mtc.result.txt: data/%.data.txt code/read.bugs.data.R code/run.mtc.R
 data/%.meas.txt: data/%.mtc.result.txt data/%.data.txt analyses/analysis-mtc.R
 	echo "source('analyses/analysis-mtc.R'); write.measurement('$*')" | R --vanilla --slave
 
+figs/%.pdf: $(MTCSAMPLES) figs/%.R
+	R --vanilla --slave -f $<
