@@ -42,14 +42,14 @@ to.risk.samples <- function(result, alo) {
 }
 
 write.measurement <- function(outcome) {
-	result <- dget(paste(outcome, 'mtc.result.txt', sep='.'))
+	result <- dget(paste('data/', outcome, '.mtc.result.txt', sep=''))
 	result <- relative.effect(result, t1='t1', t2=c('t2', 't3', 't4', 't5', 't6', 't7'), preserve.extra=FALSE)
 
-	data <- read.bugs.data(paste(outcome, 'data.txt', sep='.'))
+	data <- read.bugs.data(paste('data/', outcome, '.data.txt', sep=''))
 	alo <- abs.pooled(data, 1)
 	rel <- rel.pooled(result)
 
-	dput(list(base=alo, rel=rel), paste(outcome, 'meas.txt', sep='.'))
+	dput(list(base=alo, rel=rel), paste('data/', outcome, '.meas.txt', sep=''))
 }
 
 #> exp(alo.pooled) / (1 + exp(alo.pooled))
