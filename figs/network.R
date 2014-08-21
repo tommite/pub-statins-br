@@ -8,5 +8,8 @@ colnames(data) <- c('responders', 'sampleSize', 'treatment', 'study')
 data$treatment <- treatments[data$treatment]
 
 network <- mtc.network(data)
+
+pdf('figs/network.pdf')
 plot(network, edge.color='black', vertex.color='white', vertex.label.color='black',
      vertex.size=30, vertex.label.family='sans')
+dev.off()

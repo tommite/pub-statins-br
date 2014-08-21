@@ -14,5 +14,5 @@ data/%.mtc.result.txt: data/%.data.txt code/read.bugs.data.R code/run.mtc.R
 data/%.meas.txt: data/%.mtc.result.txt data/%.data.txt analyses/analysis-mtc.R
 	echo "source('analyses/analysis-mtc.R'); write.measurement('$*')" | R --vanilla --slave
 
-figs/%.pdf: $(MTCSAMPLES) figs/%.R
+figs/%.pdf: figs/%.R $(MTCSAMPLES)
 	R --vanilla --slave -f $<
