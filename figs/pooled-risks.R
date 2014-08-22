@@ -1,4 +1,5 @@
 source('params.R')
+source('analyses/analysis-mtc.R')
 library(gemtc)
 
 plot.pooled <- function(oc) {
@@ -7,5 +8,3 @@ plot.pooled <- function(oc) {
   forest(rel.eff)
 }
 
-par(mfrow=c(ceiling(length(outcomes)/2), 2))
-llply(outcomes, plot.pooled)
