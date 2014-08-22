@@ -1,8 +1,7 @@
 library(gemtc)
-
-treatments <- c('Control', 'Atorva', 'Fluva', 'Lova', 'Prava', 'Rosuva', 'Simva')
-
+source('params.R')
 source('code/read.bugs.data.R')
+
 data <- read.bugs.data('data/coronary.data.txt')
 colnames(data) <- c('responders', 'sampleSize', 'treatment', 'study')
 data$treatment <- treatments[data$treatment]

@@ -1,5 +1,6 @@
 source('code/read.bugs.data.R')
 source('code/run.mtc.R')
+source('params.R')
 
 ### Naive pooling of placebo arms for rough incidence
 
@@ -43,7 +44,7 @@ to.risk.samples <- function(result, alo) {
 
 write.measurement <- function(outcome) {
 	result <- dget(paste('data/', outcome, '.mtc.result.txt', sep=''))
-	result <- relative.effect(result, t1='t1', t2=c('t2', 't3', 't4', 't5', 't6', 't7'), preserve.extra=FALSE)
+	result <- relative.effect(result, t1=treatments[1], t2=treatments[-1], preserve.extra=FALSE)
 
 	data <- read.bugs.data(paste('data/', outcome, '.data.txt', sep=''))
 	alo <- abs.pooled(data, 1)
