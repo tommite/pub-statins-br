@@ -1,6 +1,6 @@
 
 ### Convert data to one-row-per-arm format
-read.bugs.data <- function(file) {
+read.bugs.data <- function(file, filter=c('m', 'p', 's')) {
 	data <- read.table(file, header=T)
         pops <- data$population
 
@@ -19,5 +19,6 @@ read.bugs.data <- function(file) {
 	data$n <- as.integer(data$n)
 	data <- data[!is.na(data$t),]
         data$pop <- pops[data$s] # add population identifier
-	data
+        # filter out studies not matching the filter
+	data[data$pop %in% filter,]
 }
