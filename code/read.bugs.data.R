@@ -1,7 +1,8 @@
-### Convert data to one-row-per-arm format
 
+### Convert data to one-row-per-arm format
 read.bugs.data <- function(file) {
 	data <- read.table(file, header=T)
+        pops <- data$population
 
 	n <- length(grep('^r\\.\\.', colnames(data)))
 	cols <- c('r', 'n', 't')
@@ -17,5 +18,6 @@ read.bugs.data <- function(file) {
 	data$r <- as.integer(data$r)
 	data$n <- as.integer(data$n)
 	data <- data[!is.na(data$t),]
+        data$pop <- pops[data$s] # add population identifier
 	data
 }
