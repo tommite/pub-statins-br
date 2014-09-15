@@ -1,15 +1,21 @@
 OUTCOMES := cerebrovasc ck-elevation coronary discontinuation mortality myalgia transaminase
 MTCSAMPLES := $(OUTCOMES:%=data/%.mtc.result.txt)
+MTCPRIMARYSAMPLES := $(OUTCOMES:%=data/%.mtc.result.primary.txt)
 MTCDATA := $(OUTCOMES:%=data/%.data.txt)
 SMAAMEAS := $(OUTCOMES:%=data/%.meas.txt)
 FIGS = figs/network.pdf figs/quantile-fig.pdf
 
 all: $(MTCSAMPLES) $(SMAAMEAS) $(FIGS)
 
-.PRECIOUS: $(MTCSAMPLES)
+primary: $(MTCPRIMARYSAMPLES)
+
+.PRECIOUS: $(MTCSAMPLES) $(MTCPRIMARYSAMPLES)
 
 data/%.mtc.result.txt: data/%.data.txt code/read.bugs.data.R code/run.mtc.R
 	echo "source('code/read.bugs.data.R'); source('code/run.mtc.R'); dput(run.mtc(read.bugs.data('$<')), '$@')" | R --vanilla --slave
+
+data/%.mtc.result.primary.txt: data/%.data.txt code/read.bugs.data.R code/run.mtc.R
+	echo "source('code/read.bugs.data.R'); source('code/run.mtc.R'); dput(run.mtc(read.bugs.data('$<', 'p')[,1:4]), '$@')" | R --vanilla --slave
 
 data/%.meas.txt: data/%.mtc.result.txt data/%.data.txt analyses/analysis-mtc.R
 	echo "source('analyses/analysis-mtc.R'); write.measurement('$*')" | R --vanilla --slave
