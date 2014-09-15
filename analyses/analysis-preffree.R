@@ -1,4 +1,4 @@
-source('analysis-base.R')
+source('analyses/analysis-base.R')
 
 ### Preference-free analysis ###
 w.W <- simplex.sample(length(outcomes), N)$samples

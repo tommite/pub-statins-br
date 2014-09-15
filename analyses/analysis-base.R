@@ -19,6 +19,9 @@ gen.meas <- function(desc) {
 meas <- lapply(outcomes, function(outcome) { gen.meas(dget(paste('data/', outcome, '.meas.txt', sep=''))) })
 names(meas) <- outcomes
 
+meas.secondary <- lapply(outcomes, function(outcome) { gen.meas(dget(paste('data/', outcome, '.secondary.meas.txt', sep=''))) })
+names(meas.secondary) <- outcomes
+
 calc.quantiles <- function(meas) {
 	lapply(meas, function(x) {
 		apply(x, 2, function(y) {

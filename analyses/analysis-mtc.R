@@ -40,13 +40,14 @@ to.risk.samples <- function(result, alo) {
 	}))
 }
 
-write.measurement <- function(outcome) {
+write.measurement <- function(outcome, basel.filter='p') {
 	result <- dget(paste('data/', outcome, '.mtc.result.txt', sep=''))
 	result <- relative.effect(result, t1=treatments[1], t2=treatments[-1], preserve.extra=FALSE)
 
-	data <- read.bugs.data(paste('data/', outcome, '.data.txt', sep=''))
+	data <- read.bugs.data(paste('data/', outcome, '.data.txt', sep=''),
+                               basel.filter)
 	alo <- abs.pooled(data, 1)
 	rel <- rel.pooled(result)
 
-	dput(list(base=alo, rel=rel), paste('data/', outcome, '.meas.txt', sep=''))
+	dput(list(base=alo, rel=rel), paste('data/', outcome, '.', paste(basel.filter, collapse='.'), '.meas.txt', sep=''))
 }
