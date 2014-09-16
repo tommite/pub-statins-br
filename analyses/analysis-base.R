@@ -19,15 +19,14 @@ gen.meas <- function(desc) {
 meas <- lapply(outcomes, function(outcome) { gen.meas(dget(paste('data/', outcome, '.meas.txt', sep=''))) })
 names(meas) <- outcomes
 
-meas.secondary <- lapply(outcomes, function(outcome) { gen.meas(dget(paste('data/', outcome, '.secondary.meas.txt', sep=''))) })
-names(meas.secondary) <- outcomes
+oc.quantiles <- function(oc.meas) {
+    apply(oc.meas, 2, function(y) {
+        quantile(y, probs=c(0.025, 0.5, 0.975))
+    })
+}
 
 calc.quantiles <- function(meas) {
-	lapply(meas, function(x) {
-		apply(x, 2, function(y) {
-			quantile(y, probs=c(0.025, 0.5, 0.975))
-		})
-	})
+	lapply(meas, oc.quantiles)
 }
 
 print.pvf.ranges <- function(meas) {

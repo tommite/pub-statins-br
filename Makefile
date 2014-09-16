@@ -10,6 +10,9 @@ samples: $(MEAS)
 
 .PRECIOUS: $(MTCSAMPLES) $(MEAS)
 
+print-subgroups: $(MEAS)
+	R --vanilla --slave < analyses/subgroups.R
+
 data/%.mtc.result.txt: data/%.data.txt code/read.bugs.data.R code/run.mtc.R
 	echo "source('code/read.bugs.data.R'); source('code/run.mtc.R'); dput(run.mtc(read.bugs.data('$<')), '$@')" | R --vanilla --slave
 
