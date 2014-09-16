@@ -34,5 +34,5 @@ figs/quantile-fig.pdf: $(MTCSAMPLES) figs/quantile-fig.tex figs/quantile-fig.R f
 	cd figs; sh process-quantfigs.sh
 	cd figs; pdflatex quantile-fig
 
-figs/%.pdf: figs/%.R $(MTCSAMPLES)
+figs/%.pdf: figs/%.R $(MTCSAMPLES) analyses/analysis-base.R
 	R --vanilla --slave -f $<

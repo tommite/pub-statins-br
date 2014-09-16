@@ -1,10 +1,10 @@
-source('analysis-base.R')
+source('analyses/analysis-base.R')
 library(plyr)
 library(R.utils)
 
-pdf('histogram.pdf')
+pdf('figs/histogram.pdf')
 
-outcome <- 'discontinuation'
+outcome <- 'myalgia'
 treat.rng <- 2:7
 
 densities <- alply(meas[[outcome]], 2, density)
