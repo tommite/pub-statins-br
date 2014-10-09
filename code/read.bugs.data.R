@@ -1,3 +1,7 @@
+# To get GeMTC working on R 2.*
+paste0 <- function(x, ...) {
+       paste(x, ..., sep='')
+}
 
 ### Convert data to one-row-per-arm format
 read.bugs.data <- function(file, filter=c('m', 'p', 's'), only.included=FALSE) {

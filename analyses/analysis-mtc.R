@@ -45,7 +45,7 @@ write.measurement <- function(outcome, basel.filter='p') {
 	result <- relative.effect(result, t1=treatments[1], t2=treatments[-1], preserve.extra=FALSE)
 
 	data <- read.bugs.data(paste('data/', outcome, '.data.txt', sep=''),
-                               basel.filter)
+                               basel.filter, only.included='p' %in% basel.filter)
 	alo <- abs.pooled(data, 1)
 	rel <- rel.pooled(result)
 

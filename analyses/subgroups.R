@@ -3,6 +3,8 @@ source('analyses/analysis-base.R')
 
 groups <- list('p', 's', 'm', c('p', 's', 'm'))
 
+message("---\nQuantiles using mixed, secondary, or primary prevention studies for the baseline estimation. NOTE: for primary prevention studies only the studies filtered by Douwe are included.\n---")
+
 oc.stat <- function(oc, group) {
     meas <- gen.meas(dget(paste('data/', oc, '.', paste(group, collapse='.'), '.meas.txt', sep='')))
     q <- oc.quantiles(meas)
