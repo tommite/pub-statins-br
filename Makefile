@@ -8,10 +8,15 @@ all: $(MTCSAMPLES) $(MEAS) $(FIGS)
 
 samples: $(MEAS)
 
+data: $(MTCDATA)
+
 .PRECIOUS: $(MTCSAMPLES) $(MEAS)
 
 print-subgroups: $(MEAS)
 	R --vanilla --slave < analyses/subgroups.R
+
+data/%.data.txt: code/excel.to.txt.R data/studies-with-filtering-info.xlsx
+	R --vanilla --slace < code/excel.to.txt.R
 
 data/%.mtc.result.txt: data/%.data.txt code/read.bugs.data.R code/run.mtc.R
 	echo "source('code/read.bugs.data.R'); source('code/run.mtc.R'); dput(run.mtc(read.bugs.data('$<')), '$@')" | R --vanilla --slave
