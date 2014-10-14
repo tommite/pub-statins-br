@@ -37,10 +37,14 @@ figs/quantile-fig.pdf: $(MTCSAMPLES) figs/quantile-fig.tex figs/quantile-fig.R f
 	R --vanilla --slave < figs/quantile-fig.R
 	cd figs; sh process-quantfigs.sh
 	cd figs; pdflatex quantile-fig
+	cd figs; pdfcrop quantile-fig.pdf
+	cd figs; mv quantile-fig-crop.pdf quantile-fig.pdf
 
 figs/ra-fig.pdf: $(MTCSAMPLES) figs/ra-exact.pdf figs/ra-preffree.pdf figs/ra-ordinal.pdf figs/ra-ratio.pdf figs/ra-fig.tex figs/process-rafigs.sh
 	cd figs; sh process-rafigs.sh
 	cd figs; pdflatex ra-fig
+	cd figs; pdfcrop ra-fig.pdf
+	cd figs; mv ra-fig-crop.pdf ra-fig.pdf
 
 figs/%.pdf: figs/%.R $(MTCSAMPLES) analyses/analysis-base.R
 	R --vanilla --slave -f $<

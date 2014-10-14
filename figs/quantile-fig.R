@@ -1,8 +1,15 @@
+library(plyr)
 source('analyses/analysis-base.R')
 source('params.R')
 
 meas <- lapply(outcomes, function(outcome) { gen.meas(dget(paste('data/', outcome, '.meas.txt', sep=''))) })
 names(meas) <- outcomes
+
+calc.quantiles <- function(meas) {
+	lapply(meas, oc.quantiles)
+}
+
+quants <- calc.quantiles(meas)
 
 plotQuantiles <- function(outcome) {
   data <- data.frame(id=colnames(quants[[outcome]]), pe=quants[[outcome]]['50%',],
