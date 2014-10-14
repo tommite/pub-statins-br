@@ -1,8 +1,8 @@
-OUTCOMES := cerebrovasc ck-elevation coronary myalgia transaminase
+OUTCOMES := cerebrovasc coronary myalgia transaminase
 MTCSAMPLES := $(OUTCOMES:%=data/%.mtc.result.txt)
 MTCDATA := $(OUTCOMES:%=data/%.data.txt)
 MEAS := $(OUTCOMES:%=data/%.p.meas.txt) $(OUTCOMES:%=data/%.s.meas.txt) $(OUTCOMES:%=data/%.m.meas.txt) $(OUTCOMES:%=data/%.p.s.m.meas.txt)
-FIGS = figs/network.pdf figs/quantile-fig.pdf
+FIGS = figs/network.pdf figs/quantile-fig.pdf figs/ra-exact.pdf figs/ra-ordinal.pdf figs/ra-ratio.pdf figs/ra-preffree.pdf
 
 all: $(MTCSAMPLES) $(MEAS) $(FIGS)
 
@@ -33,11 +33,27 @@ data/%.m.meas.txt: data/%.mtc.result.txt data/%.data.txt analyses/analysis-mtc.R
 data/%.p.s.m.meas.txt: data/%.mtc.result.txt data/%.data.txt analyses/analysis-mtc.R
 	echo "source('analyses/analysis-mtc.R'); write.measurement('$*', c('p', 's', 'm'))" | R --vanilla --slave
 
-
 figs/quantile-fig.pdf: $(MTCSAMPLES) figs/quantile-fig.tex figs/quantile-fig.R figs/process-quantfigs.sh
 	R --vanilla --slave < figs/quantile-fig.R
 	cd figs; sh process-quantfigs.sh
 	cd figs; pdflatex quantile-fig
 
+figs/ra-fig.pdf: $(MTCSAMPLES) figs/ra-exact.pdf figs/ra-preffree.pdf figs/ra-ordinal.pdf figs/ra-ratio.pdf figs/ra-fig.tex figs/process-rafigs.sh
+	cd figs; sh process-rafigs.sh
+	cd figs; pdflatex ra-fig
+
 figs/%.pdf: figs/%.R $(MTCSAMPLES) analyses/analysis-base.R
 	R --vanilla --slave -f $<
+
+figs/ra-exact.pdf: analyses/analysis-exact.R analyses/analysis-base.R
+	R --vanilla --slave -f analyses/analysis-exact.R
+
+figs/ra-ratio.pdf: analyses/analysis-ratio.R analyses/analysis-base.R
+	R --vanilla --slave -f analyses/analysis-ratio.R
+
+figs/ra-ordinal.pdf: analyses/analysis-ordinal.R analyses/analysis-base.R
+	R --vanilla --slave -f analyses/analysis-ordinal.R
+
+figs/ra-preffree.pdf: analyses/analysis-ordinal.R analyses/analysis-base.R
+	R --vanilla --slave -f analyses/analysis-preffree.R
+
