@@ -12,7 +12,7 @@ dev.off()
 ## Plot central weights for alts >= min.cf.limit
 pdf('figs/cw-preffree.pdf')
 plot(NA, xlim=c(1, length(outcomes)), ylim=c(0, 0.50), xlab="", ylab="Weight", xaxt='n')
-axis(side=1, at=1:length(outcomes), labels=outcomes, las=2)
+axis(side=1, at=1:length(outcomes), labels=outcomes, las=1)
 result.pref.free.cw <- smaa.cf(part.values, result.pref.free$cw)
 pfree.to.plot <- result.pref.free.cw$cf >= min.cf.limit
 for (t in treatments) {
