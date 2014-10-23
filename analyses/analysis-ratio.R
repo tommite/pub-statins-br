@@ -21,6 +21,6 @@ print(result.ratio$ra)
 
 ## Plot rank acceptabilities
 pdf('figs/ra-ratio.pdf')
-barplot(t(result.ratio$ra), main="Imprecise weight ratios")
+barplot(t(result.ratio$ra), main="Imprecise trade-off ratios")
 dev.off()
 
