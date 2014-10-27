@@ -11,8 +11,10 @@ min.cf.limit <- 0.1
 ilogit <- function(x) { exp(x) / (1 + exp(x)) }
 
 gen.meas <- function(desc) {
-	meas <- ilogit(cbind(0, rmnorm(N, desc$rel$mean, desc$rel$cov)) +
-                          rnorm(N, desc$base$mean, desc$base$se))
+  base <- rnorm(N, desc$base$mean, desc$base$se)
+  rel <- cbind(0, rmnorm(N, desc$rel$mean, desc$rel$cov))
+  abs <- t(t(rel) + base)
+	meas <- ilogit(abs)
 	colnames(meas) <- treatments
 	meas
 }

@@ -1,7 +1,7 @@
 OUTCOMES := cerebrovasc coronary myalgia transaminase
 MTCSAMPLES := $(OUTCOMES:%=data/%.mtc.result.txt)
 MTCDATA := $(OUTCOMES:%=data/%.data.txt)
-MEAS := $(OUTCOMES:%=data/%.p.meas.txt) $(OUTCOMES:%=data/%.s.meas.txt) $(OUTCOMES:%=data/%.m.meas.txt) $(OUTCOMES:%=data/%.p.s.m.meas.txt)
+MEAS := $(OUTCOMES:%=data/%.p.meas.txt)
 FIGS = figs/network.pdf figs/quantile-fig.pdf figs/ra-exact.pdf figs/ra-ordinal.pdf figs/ra-ratio.pdf figs/ra-preffree.pdf
 
 all: $(MTCSAMPLES) $(MEAS) $(FIGS)
