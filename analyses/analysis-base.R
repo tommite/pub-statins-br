@@ -13,7 +13,7 @@ ilogit <- function(x) { exp(x) / (1 + exp(x)) }
 gen.meas <- function(desc) {
   base <- rnorm(N, desc$base$mean, desc$base$se)
   rel <- cbind(0, rmnorm(N, desc$rel$mean, desc$rel$cov))
-  abs <- t(t(rel) + base)
+  abs <- rel + base
 	meas <- ilogit(abs)
 	colnames(meas) <- treatments
 	meas
