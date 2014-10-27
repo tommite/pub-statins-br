@@ -4,13 +4,12 @@ source('params.R')
 
 ### Naive pooling of placebo arms for rough incidence
 abs.pooled <- function(data, trt) {
+  library(rjags)
 	data1 <- data[data$t == trt,]
-	data1$r <- data1$r + 0.5
-	data1$n <- data1$n + 1
-	alo <- log(data1$r / (data1$n - data1$r))
-	alo.se <- sqrt(1/data1$r + 1 / (data1$n - data1$r))
-	alo.prec <- 1 / alo.se
-	weighted.mean(alo, alo.prec)
+  model <- jags.model('analyses/baseline.jags', data=list(n=data1$n, r=data1$r))
+  samples <- coda.samples(model, variable.names=c('pred'), n.iter=5E3)
+  s <- summary(samples)
+  list(mean=unname(s$statistics[1]), se=unname(s$statistics[2]))
 }
 
 ### Normal summaries of relative effects (MTC results)
