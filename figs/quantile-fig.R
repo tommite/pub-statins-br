@@ -11,17 +11,20 @@ calc.quantiles <- function(meas) {
 
 quants <- calc.quantiles(meas)
 
-plotQuantiles <- function(outcome) {
+plotQuantiles <- function(outcome, xlim=c(round(min(quants[[outcome]]), 2)-0.01,
+                     round(max(quants[[outcome]]), 2)+0.01)) {
   data <- data.frame(id=colnames(quants[[outcome]]), pe=quants[[outcome]]['50%',],
                      ci.l=quants[[outcome]]['2.5%',], ci.u=quants[[outcome]]['97.5%',], style='normal')
-  blobbogram(data, xlim=c(round(min(quants[[outcome]]), 2)-0.01,
-                     round(max(quants[[outcome]]), 2)+0.01),
+  blobbogram(data, xlim=xlim,
              id.label="Treatment", ci.label="Risk (95% CI)", right.label=outcome)
 }
 
 ## make quantile figs
 for (oc in outcomes) {
     pdf(paste('figs/quantiles-', oc, '.pdf', sep=''))
-    plotQuantiles(oc)
+    if (oc == 'myalgia')
+        plotQuantiles(oc, c(0, 0.08))
+    else
+        plotQuantiles(oc)
     dev.off()
 }
