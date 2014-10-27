@@ -33,7 +33,7 @@ data/%.m.meas.txt: data/%.mtc.result.txt data/%.data.txt analyses/analysis-mtc.R
 data/%.p.s.m.meas.txt: data/%.mtc.result.txt data/%.data.txt analyses/analysis-mtc.R
 	echo "source('analyses/analysis-mtc.R'); write.measurement('$*', c('p', 's', 'm'))" | R --vanilla --slave
 
-figs/quantile-fig.pdf: $(MTCSAMPLES) figs/quantile-fig.tex figs/quantile-fig.R figs/process-quantfigs.sh
+figs/quantile-fig.pdf: $(MTCSAMPLES) $(MEAS) figs/quantile-fig.tex figs/quantile-fig.R figs/process-quantfigs.sh
 	R --vanilla --slave < figs/quantile-fig.R
 	cd figs; sh process-quantfigs.sh
 	cd figs; pdflatex quantile-fig
