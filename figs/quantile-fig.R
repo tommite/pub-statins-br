@@ -2,7 +2,7 @@ library(plyr)
 source('analyses/analysis-base.R')
 source('params.R')
 
-meas <- lapply(outcomes, function(outcome) { gen.meas(dget(paste('data/', outcome, '.m.meas.txt', sep=''))) })
+meas <- lapply(outcomes, function(outcome) { gen.meas(dget(paste('data/', outcome, '.p.meas.txt', sep=''))) })
 names(meas) <- outcomes
 
 calc.quantiles <- function(meas) {
@@ -22,9 +22,6 @@ plotQuantiles <- function(outcome, xlim=c(round(min(quants[[outcome]]), 2)-0.01,
 ## make quantile figs
 for (oc in outcomes) {
     pdf(paste('figs/quantiles-', oc, '.pdf', sep=''))
-    if (oc == 'myalgia')
-        plotQuantiles(oc, c(0, 0.08))
-    else
-        plotQuantiles(oc)
+    plotQuantiles(oc)
     dev.off()
 }
