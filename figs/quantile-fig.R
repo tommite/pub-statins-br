@@ -2,7 +2,7 @@ library(plyr)
 source('analyses/analysis-base.R')
 source('params.R')
 
-meas <- lapply(outcomes, function(outcome) { gen.meas(dget(paste('data/', outcome, '.meas.txt', sep=''))) })
+meas <- lapply(outcomes, function(outcome) { gen.meas(dget(paste('data/', outcome, '.m.meas.txt', sep=''))) })
 names(meas) <- outcomes
 
 calc.quantiles <- function(meas) {
