@@ -21,17 +21,8 @@ data/%.data.txt: code/excel.to.txt.R data/studies-with-filtering-info.xlsx
 data/%.mtc.result.txt: data/%.data.txt code/read.bugs.data.R code/run.mtc.R
 	echo "source('code/read.bugs.data.R'); source('code/run.mtc.R'); dput(run.mtc(read.bugs.data('$<')), '$@')" | R --vanilla --slave
 
-data/%.p.meas.txt: data/%.mtc.result.txt data/%.data.txt analyses/analysis-mtc.R
+data/%.p.meas.txt: data/%.mtc.result.txt data/%.data.txt analyses/analysis-mtc.R analyses/baseline.jags
 	echo "source('analyses/analysis-mtc.R'); write.measurement('$*', 'p')" | R --vanilla --slave
-
-data/%.s.meas.txt: data/%.mtc.result.txt data/%.data.txt analyses/analysis-mtc.R
-	echo "source('analyses/analysis-mtc.R'); write.measurement('$*', 's')" | R --vanilla --slave
-
-data/%.m.meas.txt: data/%.mtc.result.txt data/%.data.txt analyses/analysis-mtc.R
-	echo "source('analyses/analysis-mtc.R'); write.measurement('$*', 'm')" | R --vanilla --slave
-
-data/%.p.s.m.meas.txt: data/%.mtc.result.txt data/%.data.txt analyses/analysis-mtc.R
-	echo "source('analyses/analysis-mtc.R'); write.measurement('$*', c('p', 's', 'm'))" | R --vanilla --slave
 
 figs/quantile-fig.pdf: $(MTCSAMPLES) $(MEAS) figs/quantile-fig.tex figs/quantile-fig.R figs/process-quantfigs.sh
 	R --vanilla --slave < figs/quantile-fig.R
