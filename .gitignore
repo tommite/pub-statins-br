@@ -1,0 +1,7 @@
+*.pdf
+*.meas.txt
+*.result.txt
+*.data.txt
+*.aux
+*.log
+*~
