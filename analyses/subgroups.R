@@ -1,9 +1,9 @@
 library(plyr)
 source('analyses/analysis-base.R')
 
-groups <- list('p', 's', 'm', c('p', 's', 'm'))
+groups <- list('p')
 
-message("---\nQuantiles using mixed, secondary, or primary prevention studies for the baseline estimation. NOTE: for primary prevention studies only the studies filtered by Douwe are included.\n---")
+message("---\nQuantiles using filtered primary prevention studies for the baseline estimation.\n---")
 
 oc.stat <- function(oc, group) {
     meas <- gen.meas(dget(paste('data/', oc, '.', paste(group, collapse='.'), '.meas.txt', sep='')))
@@ -18,7 +18,7 @@ all.res <- llply(groups, function(gr) {
     res
 })
 
-names(all.res) <- c('primary', 'secondary', 'mixed', 'all')
+names(all.res) <- c('primary')
 
 options(digits=1)
 
