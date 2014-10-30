@@ -10,8 +10,10 @@ min.cf.limit <- 0.1
 
 ilogit <- function(x) { exp(x) / (1 + exp(x)) }
 
-gen.meas <- function(desc) {
-  base <- rnorm(N, desc$base$mean, desc$base$se)
+gen.meas <- function(desc, baseline.uncertainty=TRUE) {
+  base <-
+    if (baseline.uncertainty) rnorm(N, desc$base$mean, desc$base$se)
+    else rep(desc$base$mean, N)
   rel <- cbind(0, rmnorm(N, desc$rel$mean, desc$rel$cov))
   abs <- rel + base
 	meas <- ilogit(abs)
