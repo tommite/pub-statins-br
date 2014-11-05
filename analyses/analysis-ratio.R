@@ -5,12 +5,12 @@ n <- length(outcomes)
 
 ## Preferences
 constr <- mergeConstraints(simplexConstraints(n),
-                           lowerRatioConstraint(n, 1, 2, 0.85), # wcer / wcor in [0.85, 0.95]
-                           upperRatioConstraint(n, 1, 2, 0.95),
-                           lowerRatioConstraint(n, 1, 3, 30.0), # wcor / wmya in [30, 50]
-                           upperRatioConstraint(n, 1, 3, 50.0),
-                           lowerRatioConstraint(n, 3, 4, 4.0), # wmya / wtra in [4, 6]
-                           upperRatioConstraint(n, 3, 4, 6.0))
+                           lowerRatioConstraint(n, 1, 2, 0.5), # wcer / wcor in [0.5, 0.8]
+                           upperRatioConstraint(n, 1, 2, 0.8),
+                           lowerRatioConstraint(n, 1, 3, 25.0), # wcor / wmya in [25, 55]
+                           upperRatioConstraint(n, 1, 3, 55.0),
+                           lowerRatioConstraint(n, 1, 4, 50.0), # wcor / wmya in [50, 90]
+                           upperRatioConstraint(n, 1, 4, 90.0))
                            
 w.W <- hitandrun(constr, n.samples=N)
 

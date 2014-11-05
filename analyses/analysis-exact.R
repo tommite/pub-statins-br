@@ -2,9 +2,9 @@ source('analyses/analysis-smaa.R')
 
 ## Preferences
 wcer <- 1.0
-wcor <- 0.9 * wcer
+wcor <- 0.66 * wcer
 wmya <- wcor / 40.0
-wtra <- wmya / 5
+wtra <- wcor / 70.0
 
 w <- c(wcor, wcer, wmya, wtra)
 w <- w / sum(w) # normalize
