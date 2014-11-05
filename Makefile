@@ -24,6 +24,13 @@ data/%.mtc.result.txt: data/%.data.txt code/read.bugs.data.R code/run.mtc.R
 data/%.p.meas.txt: data/%.mtc.result.txt data/%.data.txt analyses/analysis-mtc.R analyses/baseline.jags
 	echo "source('analyses/analysis-mtc.R'); write.measurement('$*', 'p')" | R --vanilla --slave
 
+figs/absmeas.pdf: $(MTCSAMPLES) $(MEAS) figs/absmeas.tex figs/quantile-abs.R figs/process-absfigs.sh
+	R --vanilla --slave < figs/quantile-abs.R
+	cd figs; sh process-absfigs.sh
+	cd figs; pdflatex absmeas
+	cd figs; pdfcrop absmeas.pdf
+	cd figs; mv absmeas-crop.pdf absmeas.pdf
+
 figs/quantile-fig.pdf: $(MTCSAMPLES) $(MEAS) figs/quantile-fig.tex figs/quantile-fig.R figs/process-quantfigs.sh
 	R --vanilla --slave < figs/quantile-fig.R
 	cd figs; sh process-quantfigs.sh
