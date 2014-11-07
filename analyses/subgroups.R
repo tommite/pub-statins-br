@@ -20,6 +20,6 @@ all.res <- llply(groups, function(gr) {
 
 names(all.res) <- c('primary')
 
-options(digits=1)
+options(digits=2)
 
 print(all.res)

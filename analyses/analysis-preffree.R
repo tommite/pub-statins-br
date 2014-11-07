@@ -4,6 +4,8 @@ source('analyses/analysis-smaa.R')
 w.W <- simplex.sample(length(outcomes), N)$samples
 result.pref.free <- smaa(part.values, w.W)
 
+print(result.pref.free$ra)
+
 ## Plot rank acceptabilities
 pdf('figs/ra-preffree.pdf')
 barplot(t(result.pref.free$ra), main="Missing preferences")

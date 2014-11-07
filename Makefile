@@ -2,7 +2,7 @@ OUTCOMES := cerebrovasc coronary myalgia transaminase
 MTCSAMPLES := $(OUTCOMES:%=data/%.mtc.result.txt)
 MTCDATA := $(OUTCOMES:%=data/%.data.txt)
 MEAS := $(OUTCOMES:%=data/%.p.meas.txt)
-FIGS = figs/network.pdf figs/quantile-fig.pdf figs/ra-exact.pdf figs/ra-ordinal.pdf figs/ra-ratio.pdf figs/ra-preffree.pdf
+FIGS = figs/network.pdf figs/quantile-fig.pdf figs/ra-exact.pdf figs/ra-ordinal.pdf figs/ra-ratio.pdf figs/ra-preffree.pdf figs/odds.pdf
 
 all: $(MTCSAMPLES) $(MEAS) $(FIGS)
 
@@ -30,6 +30,13 @@ figs/absmeas.pdf: $(MTCSAMPLES) $(MEAS) figs/absmeas.tex figs/quantile-abs.R fig
 	cd figs; pdflatex absmeas
 	cd figs; pdfcrop absmeas.pdf
 	cd figs; mv absmeas-crop.pdf absmeas.pdf
+
+figs/odds.pdf: $(MTCSAMPLES) $(MEAS) figs/odds.tex figs/odds.R figs/process-odds.sh
+	R --vanilla --slave < figs/odds.R
+	cd figs; sh process-odds.sh
+	cd figs; pdflatex odds
+	cd figs; pdfcrop odds.pdf
+	cd figs; mv odds-crop.pdf odds.pdf
 
 figs/quantile-fig.pdf: $(MTCSAMPLES) $(MEAS) figs/quantile-fig.tex figs/quantile-fig.R figs/process-quantfigs.sh
 	R --vanilla --slave < figs/quantile-fig.R
