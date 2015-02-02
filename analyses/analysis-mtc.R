@@ -2,10 +2,10 @@ source('code/read.bugs.data.R')
 source('code/run.mtc.R')
 source('params.R')
 
-### Naive pooling of placebo arms for rough incidence
+### Estimates the predictive distribution
 abs.pooled <- function(data, trt) {
   library(rjags)
-	data1 <- data[data$t == trt,]
+  data1 <- data[data$t == trt,]
   model <- jags.model('analyses/baseline.jags', data=list(n=data1$n, r=data1$r))
   samples <- coda.samples(model, variable.names=c('pred'), n.iter=5E3)
   s <- summary(samples)
@@ -17,7 +17,6 @@ rel.pooled <- function(result) {
 	samples <- as.matrix(result$samples)
 	list(mean=apply(samples, 2, mean), cov=cov(samples))
 }
-
 
 ### 95% CrIs for absolute risk
 ilogit <- function(x) { exp(x) / (1 + exp(x)) }
@@ -39,14 +38,17 @@ to.risk.samples <- function(result, alo) {
 	}))
 }
 
-write.measurement <- function(outcome, basel.filter='p') {
-	result <- dget(paste('data/', outcome, '.mtc.result.txt', sep=''))
-	result <- relative.effect(result, t1=treatments[1], t2=treatments[-1], preserve.extra=FALSE)
-
-	data <- read.bugs.data(paste('data/', outcome, '.data.txt', sep=''),
-                               basel.filter, only.included='p' %in% basel.filter)
-	alo <- abs.pooled(data, 1)
-	rel <- rel.pooled(result)
-
-	dput(list(base=alo, rel=rel), paste('data/', outcome, '.', paste(basel.filter, collapse='.'), '.meas.txt', sep=''))
+write.measurement <- function(outcome) {
+    result <- readRDS(paste('data/', outcome, '.mtc.result.rds', sep=''))
+    result <- relative.effect(result, t1=treatments[1], t2=treatments[-1], preserve.extra=FALSE)
+    
+    data <- read.bugs.data(paste('data/', outcome, '.data.txt', sep=''))
+    if (outcome %in% outcomes.use.single.trial) {
+        stop('TODO')
+    } else { # use all trials
+        alo <- abs.pooled(data, 1)
+    }
+    rel <- rel.pooled(result)
+    
+    saveRDS(list(base=alo, rel=rel), paste('data/', outcome, '.meas.rds', sep=''))
 }

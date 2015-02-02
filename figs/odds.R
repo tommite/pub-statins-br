@@ -2,7 +2,7 @@ library(plyr)
 library(gemtc)
 source('params.R')
 
-meas <- llply(outcomes, function(outcome) { dget(paste0('data/', outcome, '.mtc.result.txt')) })
+meas <- llply(outcomes, function(outcome) { dget(paste0('data/', outcome, '.mtc.result.rds')) })
 names(meas) <- outcomes
 
 for (oc in outcomes) {

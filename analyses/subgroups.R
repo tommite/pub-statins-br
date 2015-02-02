@@ -6,7 +6,7 @@ groups <- list('p')
 message("---\nQuantiles using filtered primary prevention studies for the baseline estimation.\n---")
 
 oc.stat <- function(oc, group) {
-    meas <- gen.meas(dget(paste('data/', oc, '.', paste(group, collapse='.'), '.meas.txt', sep='')))
+    meas <- gen.meas(dget(paste('data/', oc, '.', paste(group, collapse='.'), '.meas.rds', sep='')))
     q <- oc.quantiles(meas)
     c(min(meas), min(q[1,]), max(q[3,]), max(meas))
 }

@@ -2,7 +2,7 @@ library(gemtc)
 source('params.R')
 source('code/read.bugs.data.R')
 
-data <- read.bugs.data('data/coronary.data.txt')
+data <- read.bugs.data('data/coronary.data.rds')
 colnames(data) <- c('responders', 'sampleSize', 'treatment', 'study')
 data$treatment <- treatments[data$treatment]
 

@@ -1,28 +1,30 @@
-OUTCOMES := cerebrovasc coronary myalgia transaminase
-MTCSAMPLES := $(OUTCOMES:%=data/%.mtc.result.txt)
+OUTCOMES := NonfatalMI NonfatalStroke All-causeMortality Discontinuations Myalgia Transaminase CK
+MTCSAMPLES := $(OUTCOMES:%=data/%.mtc.result.rds)
 MTCDATA := $(OUTCOMES:%=data/%.data.txt)
-MEAS := $(OUTCOMES:%=data/%.p.meas.txt)
+MEAS := $(OUTCOMES:%=data/%.meas.rds)
 FIGS = figs/network.pdf figs/quantile-fig.pdf figs/ra-exact.pdf figs/ra-ordinal.pdf figs/ra-ratio.pdf figs/ra-preffree.pdf figs/odds.pdf
 
-all: $(MTCSAMPLES) $(MEAS) $(FIGS)
-
-samples: $(MEAS)
+all: $(MEAS) $(FIGS)
 
 data: $(MTCDATA)
+
+mtcsamples: $(MTCSAMPLES)
+
+samples: $(MEAS)
 
 .PRECIOUS: $(MTCSAMPLES) $(MEAS)
 
 print-subgroups: $(MEAS)
 	R --vanilla --slave < analyses/subgroups.R
 
-data/%.data.txt: code/excel.to.txt.R data/studies-with-filtering-info.xlsx
-	R --vanilla --slace < code/excel.to.txt.R
+data/%.data.txt: code/excel.to.txt.R data/studies-revised.xlsx
+	R --vanilla --slave --args $* $@ < code/excel.to.txt.R
 
-data/%.mtc.result.txt: data/%.data.txt code/read.bugs.data.R code/run.mtc.R
-	echo "source('code/read.bugs.data.R'); source('code/run.mtc.R'); dput(run.mtc(read.bugs.data('$<')), '$@')" | R --vanilla --slave
+data/%.mtc.result.rds: data/%.data.txt code/read.bugs.data.R code/run.mtc.R
+	echo "source('code/read.bugs.data.R'); source('code/run.mtc.R'); saveRDS(run.mtc(read.bugs.data('$<')), '$@')" | R --vanilla --slave
 
-data/%.p.meas.txt: data/%.mtc.result.txt data/%.data.txt analyses/analysis-mtc.R analyses/baseline.jags
-	echo "source('analyses/analysis-mtc.R'); write.measurement('$*', 'p')" | R --vanilla --slave
+data/%.meas.rds: data/%.mtc.result.rds data/%.data.txt analyses/analysis-mtc.R analyses/baseline.jags
+	echo "source('analyses/analysis-mtc.R'); write.measurement('$*')" | R --vanilla --slave
 
 figs/absmeas.pdf: $(MTCSAMPLES) $(MEAS) figs/absmeas.tex figs/quantile-abs.R figs/process-absfigs.sh
 	R --vanilla --slave < figs/quantile-abs.R

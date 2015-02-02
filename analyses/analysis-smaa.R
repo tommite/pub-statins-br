@@ -1,7 +1,7 @@
 library(plyr)
 source('analyses/analysis-base.R')
 
-meas <- lapply(outcomes, function(outcome) { gen.meas(dget(paste('data/', outcome, '.p.meas.txt', sep=''))) })
+meas <- lapply(outcomes, function(outcome) { gen.meas(readRDS(paste('data/', outcome, '.meas.rds', sep=''))) })
 names(meas) <- outcomes
 
 quants <- calc.quantiles(meas)
