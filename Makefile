@@ -29,7 +29,7 @@ data/%.p.meas.rds: data/%.mtc.result.rds data/%.data.txt analyses/analysis-mtc.R
 data/%.s.meas.rds: data/%.mtc.result.rds data/%.data.txt analyses/analysis-mtc.R analyses/baseline.jags
 	echo "source('analyses/analysis-mtc.R'); write.measurement('$*', FALSE)" | R --vanilla --slave
 
-figs/absmeas.pdf: $(MTCSAMPLES) $(MEAS) figs/absmeas.tex figs/quantile-abs.R figs/process-absfigs.sh
+figs/absmeas.pdf: $(MTCSAMPLES) $(MEAS) analyses/analysis-base.R figs/absmeas.tex figs/quantile-abs.R figs/process-absfigs.sh
 	R --vanilla --slave < figs/quantile-abs.R
 	cd figs; sh process-absfigs.sh
 	cd figs; pdflatex absmeas

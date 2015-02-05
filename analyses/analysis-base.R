@@ -14,7 +14,7 @@ gen.meas <- function(desc) {
     base <- if (is.numeric(desc$base$mean))
                 rnorm(N, desc$base$mean, desc$base$se)
             else
-                rbeta(N, desc$base$a, desc$base$b)
+                log(rbeta(N, desc$base$a, desc$base$b))
     rel <- cbind(0, rmnorm(N, desc$rel$mean, desc$rel$cov))
     abs <- rel + base
     meas <- ilogit(abs)
