@@ -1,3 +1,4 @@
+library(xlsx)
 source('code/read.bugs.data.R')
 source('code/run.mtc.R')
 source('params.R')
@@ -38,17 +39,29 @@ to.risk.samples <- function(result, alo) {
 	}))
 }
 
-write.measurement <- function(outcome) {
+single.trial.baseline <- function(outcome, primary=TRUE) {
+    fname <- 'data/studies-revised.xlsx'
+    xlsdata <- read.xlsx(fname, sheetName=outcome)
+    study <- if (primary) 'ALLHAT-LTT' else 'MRC/BHF Heart Protection Study'
+    study.data <- xlsdata[which(xlsdata[,1] == study),]
+    pl.r <- as.numeric(study.data[2])
+    pl.n <- as.numeric(study.data[3])
+    stopifnot(!(is.na(pl.r)) && !(is.na(pl.n))) # sanity check
+    list(a=(pl.r+1), b=(pl.n-pl.r+1))
+}
+
+write.measurement <- function(outcome, primary=TRUE) {
     result <- readRDS(paste('data/', outcome, '.mtc.result.rds', sep=''))
     result <- relative.effect(result, t1=treatments[1], t2=treatments[-1], preserve.extra=FALSE)
     
-    data <- read.bugs.data(paste('data/', outcome, '.data.txt', sep=''))
     if (outcome %in% outcomes.use.single.trial) {
-        stop('TODO')
+        alo <- single.trial.baseline(outcome, primary)
     } else { # use all trials
+        data <- read.bugs.data(paste('data/', outcome, '.data.txt', sep=''))
         alo <- abs.pooled(data, 1)
     }
     rel <- rel.pooled(result)
-    
-    saveRDS(list(base=alo, rel=rel), paste('data/', outcome, '.meas.rds', sep=''))
+
+    add.char <- if (primary) 'p' else 's'
+    saveRDS(list(base=alo, rel=rel), paste('data/', outcome, '.', add.char, '.meas.rds', sep=''))
 }

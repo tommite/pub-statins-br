@@ -1,14 +1,14 @@
 library(plyr)
 source('analyses/analysis-base.R')
 
-groups <- list('p')
+groups <- list('p', 's')
 
-message("---\nQuantiles using filtered primary prevention studies for the baseline estimation.\n---")
+message("---\nQuantiles for primary and secondary prevention\n---")
 
 oc.stat <- function(oc, group) {
-    meas <- gen.meas(dget(paste('data/', oc, '.', paste(group, collapse='.'), '.meas.rds', sep='')))
+    meas <- gen.meas(readRDS(paste('data/', oc, '.', group, '.meas.rds', sep='')))
     q <- oc.quantiles(meas)
-    c(min(meas), min(q[1,]), max(q[3,]), max(meas))
+    round(c(min(meas), min(q[1,]), max(q[3,]), max(meas)), 2)
 }
 
 all.res <- llply(groups, function(gr) {
@@ -18,8 +18,8 @@ all.res <- llply(groups, function(gr) {
     res
 })
 
-names(all.res) <- c('primary')
+names(all.res) <- c('primary', 'secondary')
 
-options(digits=2)
+options(scipen=100, digits=3)
 
 print(all.res)

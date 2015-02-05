@@ -10,15 +10,16 @@ min.cf.limit <- 0.1
 
 ilogit <- function(x) { exp(x) / (1 + exp(x)) }
 
-gen.meas <- function(desc, baseline.uncertainty=TRUE) {
-  base <-
-    if (baseline.uncertainty) rnorm(N, desc$base$mean, desc$base$se)
-    else rep(desc$base$mean, N)
-  rel <- cbind(0, rmnorm(N, desc$rel$mean, desc$rel$cov))
-  abs <- rel + base
-	meas <- ilogit(abs)
-	colnames(meas) <- treatments
-	meas
+gen.meas <- function(desc) {
+    base <- if (is.numeric(desc$base$mean))
+                rnorm(N, desc$base$mean, desc$base$se)
+            else
+                rbeta(N, desc$base$a, desc$base$b)
+    rel <- cbind(0, rmnorm(N, desc$rel$mean, desc$rel$cov))
+    abs <- rel + base
+    meas <- ilogit(abs)
+    colnames(meas) <- treatments
+    meas
 }
 
 oc.quantiles <- function(oc.meas) {

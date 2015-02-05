@@ -1,8 +1,8 @@
 OUTCOMES := NonfatalMI NonfatalStroke All-causeMortality Discontinuations Myalgia Transaminase CK
 MTCSAMPLES := $(OUTCOMES:%=data/%.mtc.result.rds)
 MTCDATA := $(OUTCOMES:%=data/%.data.txt)
-MEAS := $(OUTCOMES:%=data/%.meas.rds)
-FIGS = figs/network.pdf figs/quantile-fig.pdf figs/ra-exact.pdf figs/ra-ordinal.pdf figs/ra-ratio.pdf figs/ra-preffree.pdf figs/odds.pdf
+MEAS := $(OUTCOMES:%=data/%.p.meas.rds) $(OUTCOMES:%=data/%.s.meas.rds)
+FIGS := figs/network.pdf figs/quantile-fig.pdf figs/ra-exact.pdf figs/ra-ordinal.pdf figs/ra-ratio.pdf figs/ra-preffree.pdf figs/odds.pdf
 
 all: $(MEAS) $(FIGS)
 
@@ -23,8 +23,11 @@ data/%.data.txt: code/excel.to.txt.R data/studies-revised.xlsx
 data/%.mtc.result.rds: data/%.data.txt code/read.bugs.data.R code/run.mtc.R
 	echo "source('code/read.bugs.data.R'); source('code/run.mtc.R'); saveRDS(run.mtc(read.bugs.data('$<')), '$@')" | R --vanilla --slave
 
-data/%.meas.rds: data/%.mtc.result.rds data/%.data.txt analyses/analysis-mtc.R analyses/baseline.jags
-	echo "source('analyses/analysis-mtc.R'); write.measurement('$*')" | R --vanilla --slave
+data/%.p.meas.rds: data/%.mtc.result.rds data/%.data.txt analyses/analysis-mtc.R analyses/baseline.jags
+	echo "source('analyses/analysis-mtc.R'); write.measurement('$*', TRUE)" | R --vanilla --slave
+
+data/%.s.meas.rds: data/%.mtc.result.rds data/%.data.txt analyses/analysis-mtc.R analyses/baseline.jags
+	echo "source('analyses/analysis-mtc.R'); write.measurement('$*', FALSE)" | R --vanilla --slave
 
 figs/absmeas.pdf: $(MTCSAMPLES) $(MEAS) figs/absmeas.tex figs/quantile-abs.R figs/process-absfigs.sh
 	R --vanilla --slave < figs/quantile-abs.R
@@ -33,7 +36,7 @@ figs/absmeas.pdf: $(MTCSAMPLES) $(MEAS) figs/absmeas.tex figs/quantile-abs.R fig
 	cd figs; pdfcrop absmeas.pdf
 	cd figs; mv absmeas-crop.pdf absmeas.pdf
 
-figs/odds.pdf: $(MTCSAMPLES) $(MEAS) figs/odds.tex figs/odds.R figs/process-odds.sh
+figs/odds.pdf: $(MTCSAMPLES) figs/odds.tex figs/odds.R figs/process-odds.sh params.R
 	R --vanilla --slave < figs/odds.R
 	cd figs; sh process-odds.sh
 	cd figs; pdflatex odds
@@ -52,6 +55,9 @@ figs/ra-fig.pdf: $(MTCSAMPLES) figs/ra-exact.pdf figs/ra-preffree.pdf figs/ra-or
 	cd figs; pdflatex ra-fig
 	cd figs; pdfcrop ra-fig.pdf
 	cd figs; mv ra-fig-crop.pdf ra-fig.pdf
+
+figs/network.pdf: figs/network.R data/All-causeMortality.data.txt code/read.bugs.data.R params.R
+	R --vanilla --slave -f $<
 
 figs/%.pdf: figs/%.R $(MTCSAMPLES) analyses/analysis-base.R
 	R --vanilla --slave -f $<
