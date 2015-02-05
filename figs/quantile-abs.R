@@ -20,7 +20,6 @@ plotQuantiles <- function(q.oc, outcome, scale) {
     xlim <- c(round(min(quants[[outcome]]), 2)-0.01,
               round(max(quants[[outcome]]), 2)+0.01)
     if (xlim[1] < 0) xlim[1] <- 0
-    print(xlim)
     data <- data.frame(id=colnames(q.oc),
                        pe=q.oc['50%',],
                        ci.l=q.oc['2.5%',],
@@ -28,7 +27,7 @@ plotQuantiles <- function(q.oc, outcome, scale) {
                        style='pooled')
     blobbogram(data, xlim=xlim,
                id.label="Treatment", ci.label=paste(scale, "(95% CI)"),
-               right.label=oc.names[outcome])
+               center.label=oc.names[outcome], draw.no.effect=FALSE)
 }
 
 ## make quantile figs
