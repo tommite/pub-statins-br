@@ -26,7 +26,7 @@ plotQuantiles <- function(q.oc, outcome, scale) {
                        ci.u=q.oc['97.5%',],
                        style='pooled')
     blobbogram(data, xlim=xlim,
-               id.label="Treatment", ci.label=paste(scale, "(95% CI)"),
+               id.label="Treatment", ci.label=paste(scale, "(95% CrI)"),
                center.label=oc.names[outcome], draw.no.effect=FALSE)
 }
 
