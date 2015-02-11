@@ -1,17 +1,19 @@
 library(hitandrun)
 source('analyses/analysis-smaa.R')
 
-n <- length(outcomes)
+## drop insignificant criteria
+n <- 4 # length(outcomes)
+part.values <- part.values[,,1:4]
 
 ## Preferences
 constr <- mergeConstraints(simplexConstraints(n),
-                           lowerRatioConstraint(n, 1, 2, 0.5), # wcer / wcor in [0.5, 0.8]
-                           upperRatioConstraint(n, 1, 2, 0.8),
-                           lowerRatioConstraint(n, 1, 3, 25.0), # wcor / wmya in [25, 55]
-                           upperRatioConstraint(n, 1, 3, 55.0),
-                           lowerRatioConstraint(n, 1, 4, 50.0), # wcor / wmya in [50, 90]
-                           upperRatioConstraint(n, 1, 4, 90.0))
-                           
+                           lowerRatioConstraint(n, 3, 2, 3), # wmort / wstroke in [3, 5]
+                           upperRatioConstraint(n, 3, 2, 5),
+                           lowerRatioConstraint(n, 2, 1, 1.5), # wstroke / wmi in [1.5, 2.5]
+                           upperRatioConstraint(n, 2, 1, 2.5),
+                           lowerRatioConstraint(n, 1, 4, 20.0), # wmi / wmyalgia in [20, 30]
+                           upperRatioConstraint(n, 1, 4, 30.0))
+
 w.W <- hitandrun(constr, n.samples=N)
 
 ### Imprecise ratio preference analysis ###
@@ -21,6 +23,6 @@ print(result.ratio$ra)
 
 ## Plot rank acceptabilities
 pdf('figs/ra-ratio.pdf')
-barplot(t(result.ratio$ra), main="Imprecise trade-off ratios")
+barplot(t(result.ratio$ra), main="Interval trade-off ratios")
 dev.off()
 

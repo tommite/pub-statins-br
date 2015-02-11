@@ -1,13 +1,19 @@
 source('analyses/analysis-smaa.R')
 
 ## Preferences
-wcer <- 1.0
-wcor <- 0.66 * wcer
-wmya <- wcor / 40.0
-wtra <- wcor / 70.0
+wmor <- 1.0
+wstr <- (1/4) * wmor
+wmi <- (1/2) * wstr
+wmya <- (1/25) * wmi
+wck <- (1/2) * wmya
+wtra <- (1/1.1) * wck
 
-w <- c(wcor, wcer, wmya, wtra)
+w <- c(wmi, wstr, wmor, wmya, wtra, wck)
 w <- w / sum(w) # normalize
+
+## drop insignificant criteria
+w <- w[1:4]
+part.values <- part.values[,,1:4]
 
 w.W <- matrix(rep(w, N), ncol=length(w), byrow=TRUE)
 

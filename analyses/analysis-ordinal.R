@@ -5,9 +5,11 @@ n <- length(outcomes)
 
 ## Preferences
 constr <- mergeConstraints(simplexConstraints(n),
-                           ordinalConstraint(n, 2, 1), # wcer > wcor
-                           ordinalConstraint(n, 1, 3), # wcor > wmya
-                           ordinalConstraint(n, 3, 4)) # wmya > wtra
+                           ordinalConstraint(n, 3, 2), # wmort > wstroke
+                           ordinalConstraint(n, 2, 1), # wstroke > wmi
+                           ordinalConstraint(n, 1, 4), # wmi > wmyalgia
+                           ordinalConstraint(n, 4, 6), # wmyalgia > wck
+                           ordinalConstraint(n, 6, 5)) # wck > wtrans
 
 w.W <- hitandrun(constr, n.samples=N)
 
