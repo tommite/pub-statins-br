@@ -8,7 +8,10 @@ print(result.pref.free$ra)
 
 ## Plot rank acceptabilities
 pdf('figs/ra-preffree.pdf')
-barplot(t(result.pref.free$ra), main="Missing preferences")
+par(mar=c(5.1, 10.1, 4.1, 2.1), xpd=TRUE)
+barplot(t(result.pref.free$ra), main="Missing preferences",
+        legend=paste('Rank', 1:ncol(result.pref.free$ra)),
+        args.legend=list(x='topleft', inset=c(-0.35,0)))
 dev.off()
 
 ## Plot central weights for alts >= min.cf.limit

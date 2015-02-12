@@ -62,15 +62,15 @@ figs/network.pdf: figs/network.R data/All-causeMortality.data.txt code/read.bugs
 figs/%.pdf: figs/%.R $(MTCSAMPLES) analyses/analysis-base.R
 	R --vanilla --slave -f $<
 
-figs/ra-exact.pdf: analyses/analysis-exact.R analyses/analysis-base.R
+figs/ra-exact.pdf: $(MEAS) analyses/analysis-exact.R analyses/analysis-base.R
 	R --vanilla --slave -f analyses/analysis-exact.R
 
-figs/ra-ratio.pdf: analyses/analysis-ratio.R analyses/analysis-base.R
+figs/ra-ratio.pdf: $(MEAS) analyses/analysis-ratio.R analyses/analysis-base.R
 	R --vanilla --slave -f analyses/analysis-ratio.R
 
-figs/ra-ordinal.pdf: analyses/analysis-ordinal.R analyses/analysis-base.R
+figs/ra-ordinal.pdf: $(MEAS) analyses/analysis-ordinal.R analyses/analysis-base.R
 	R --vanilla --slave -f analyses/analysis-ordinal.R
 
-figs/ra-preffree.pdf: analyses/analysis-ordinal.R analyses/analysis-base.R
+figs/ra-preffree.pdf: $(MEAS) analyses/analysis-ordinal.R analyses/analysis-base.R
 	R --vanilla --slave -f analyses/analysis-preffree.R
 
