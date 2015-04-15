@@ -20,6 +20,6 @@ print(result.ordinal$ra)
 
 ## Plot rank acceptabilities
 pdf('figs/ra-ordinal.pdf')
-barplot(t(result.ordinal$ra), main="Ordinal preferences")
+barplot(t(result.ordinal$ra), main="Ordinal statements")
 dev.off()
 

@@ -9,7 +9,7 @@ print(result.pref.free$ra)
 ## Plot rank acceptabilities
 pdf('figs/ra-preffree.pdf', width=8, height=8)
 par(mar=c(5.1, 12.1, 4.1, 2.1), xpd=TRUE)
-barplot(t(result.pref.free$ra), main="Missing preferences",
+barplot(t(result.pref.free$ra), main="No weight information",
         legend=paste('Rank', 1:ncol(result.pref.free$ra)),
         args.legend=list(x='topleft', inset=c(-0.4,0)))
 dev.off()

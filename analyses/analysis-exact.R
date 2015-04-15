@@ -24,6 +24,6 @@ print(result.exact$ra)
 
 ## Plot rank acceptabilities
 pdf('figs/ra-exact.pdf')
-barplot(t(result.exact$ra), main="Exact trade-off ratios (weights)")
+barplot(t(result.exact$ra), main="Exact trade-offs (weights)")
 dev.off()
 

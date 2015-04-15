@@ -23,6 +23,6 @@ print(result.ratio$ra)
 
 ## Plot rank acceptabilities
 pdf('figs/ra-ratio.pdf')
-barplot(t(result.ratio$ra), main="Interval trade-off ratios")
+barplot(t(result.ratio$ra), main="Trade-off intervals")
 dev.off()
 
